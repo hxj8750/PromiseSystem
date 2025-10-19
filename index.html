@@ -4,7 +4,6 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>工作表 · 日历</title>
-
   <link rel="stylesheet" href="./style/calendar.css">
 </head>
 <body>
@@ -30,7 +29,8 @@
         <nav id="calNav" aria-label="月份切换">
           <button id="prevBtn" type="button" aria-label="上个月">⟨</button>
           <button id="nextBtn" type="button" aria-label="下个月">⟩</button>
-          <button id="todayBtn" type="button">回到今天</button>
+          <!-- ID 已修改，功能将由 JS 重新定义 -->
+          <button id="actionBtn" type="button">选择日期</button>
         </nav>
       </header>
 
@@ -52,8 +52,21 @@
     <!-- 版权/版本信息等占位 -->
   </footer>
 
+  <!-- 制定目标模态框 (新增) -->
+  <div id="goalModal" class="modal-overlay" hidden>
+    <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <h2 id="modalTitle">制定目标</h2>
+      <div class="modal-body">
+        <!-- 这里将来会放置表单 -->
+        <p>目标详情、押金、规则等...</p>
+      </div>
+      <div class="modal-actions">
+        <button id="saveGoalBtn" type="button">保存</button>
+      </div>
+    </div>
+  </div>
+
   <script src="./js/calendar.js"></script>
 
 </body>
 </html>
-

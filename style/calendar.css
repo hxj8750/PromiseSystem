@@ -2,221 +2,189 @@
 
 /* 1. 全局样式与变量定义 (Global Styles & Variables) */
 :root {
-    --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif;
-    --color-primary: #007aff;      /* 主题色 - 鲜明的蓝色 */
-    --color-primary-light: #e6f2ff; /* 主题浅色 - 用于悬浮等 */
-    --color-text: #2c3e50;           /* 主要文字颜色 - 深灰蓝 */
-    --color-text-light: #8a9aa8;    /* 次要文字颜色 - 浅灰 */
-    --color-background: #f8f9fa;     /* 页面背景色 - 非常浅的灰色 */
-    --color-surface: #ffffff;      /* 卡片/组件背景色 - 白色 */
-    --color-border: #dee2e6;        /* 边框颜色 */
-    --border-radius: 8px;            /* 圆角大小 */
-    --shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
-    --shadow-md: 0 4px 12px rgba(0,0,0,0.1);
-  }
-  
-  *, *::before, *::after {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-  }
-  
-  html {
-    font-size: 16px;
-  }
-  
-  body {
-    font-family: var(--font-sans);
-    background-color: var(--color-background);
-    color: var(--color-text);
-    line-height: 1.6;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    padding: 1rem;
-  }
-  
-  /* 2. 页面布局 (Layout) */
-  #appBar {
-    padding: 1rem 1.5rem;
-    margin-bottom: 1.5rem;
-  }
-  
-  #appBar h1 {
-    font-size: 1.75rem;
-    font-weight: 600;
-    color: var(--color-text);
-  }
-  
-  #app {
-    max-width: 900px;
-    margin: 0 auto;
-  }
-  
-  /* 3. 日历主容器 (Calendar Container) */
-  #calendar {
-    background-color: var(--color-surface);
-    border-radius: var(--border-radius);
-    box-shadow: var(--shadow-md);
-    padding: 1.5rem;
-    overflow: hidden;
-  }
-  
-  /* 4. 日历头部 (Calendar Header) */
-  #calHead {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1.5rem;
-    flex-wrap: wrap; /* 在小屏幕上换行 */
-    gap: 1rem;
-  }
-  
-  #calTitle {
-    display: flex;
-    align-items: baseline;
-    gap: 0.5rem;
-  }
-  
-  #monthLabel {
-    font-size: 1.5rem;
-    font-weight: 600;
-  }
-  
-  #yearLabel {
-    font-size: 1.25rem;
-    font-weight: 400;
-    color: var(--color-text-light);
-  }
-  
-  /* 5. 日历导航按钮 (Calendar Navigation) */
-  #calNav {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-  
-  #calNav button {
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    border: 1px solid var(--color-border);
-    background-color: var(--color-surface);
-    color: var(--color-text);
-    border-radius: var(--border-radius);
-    cursor: pointer;
-    transition: background-color 0.2s, color 0.2s, box-shadow 0.2s;
-    font-family: inherit;
-    font-weight: 500;
-  }
-  
-  #calNav button:hover,
-  #calNav button:focus-visible {
-    background-color: var(--color-primary-light);
-    border-color: var(--color-primary);
-    color: var(--color-primary);
-    outline: none;
-    box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.2);
-  }
-  
-  #prevBtn, #nextBtn {
-    width: 2.5rem;
-    height: 2.5rem;
-    font-size: 1.2rem;
-  }
-  
-  #todayBtn {
-    height: 2.5rem;
-    padding: 0 1rem;
-  }
-  
-  /* 6. 星期行 (Weekdays Row) */
-  #weekdays {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    margin-bottom: 0.5rem;
-    text-align: center;
-    color: var(--color-text-light);
-    font-size: 0.875rem;
-    font-weight: 500;
-  }
-  
-  /* 7. 日期网格 (Date Grid) */
-  #grid {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 4px; /* 格子之间的细微间距 */
-  }
-  
-  [role="gridcell"] {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    aspect-ratio: 1 / 1; /* 保持格子为正方形，现代CSS特性 */
-    border-radius: var(--border-radius);
-    transition: background-color 0.2s;
-  }
-  
-  /* 日期数字徽章 */
-  [role="gridcell"] span {
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    width: 2rem;
-    height: 2rem;
-    border-radius: 50%; /* 圆形 */
-    font-size: 0.9rem;
-    font-weight: 500;
-  }
-  
-  /* 非本月日期 */
-  [data-out="1"] {
-    color: var(--color-text-light);
-    opacity: 0.6;
-  }
-  
-  /* 本月日期悬浮效果 */
-  [role="gridcell"]:not([data-out="1"]):hover {
-    background-color: var(--color-primary-light);
-    cursor: pointer;
-  }
-  
-  /* 今天 */
-  [data-today="1"] span {
-    background-color: var(--color-primary);
-    color: #fff;
-    font-weight: 700;
-    box-shadow: var(--shadow-sm);
-  }
-  
-  /* 8. 响应式调整 (Responsive Adjustments) */
-  @media (max-width: 600px) {
-    html {
-      font-size: 14px;
-    }
-    
-    body {
-      padding: 0.5rem;
-    }
-    
-    #calendar {
-      padding: 1rem;
-    }
-    
-    #calHead {
-      flex-direction: column;
-      align-items: stretch; /* 让标题和按钮都占满宽度 */
-      gap: 1.25rem;
-    }
-  
-    #calTitle {
-      justify-content: center; /* 居中标题 */
-    }
-  
-    #calNav {
-      justify-content: space-between; /* 按钮平均分布 */
-    }
-    
-    #grid {
-      gap: 2px;
-    }
-  }
+  --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif;
+  --color-primary: #007aff;      /* 主题色 - 鲜明的蓝色 */
+  --color-primary-light: #e6f2ff; /* 主题浅色 - 用于悬浮等 */
+  --color-success: #34c759;      /* 成功/选中色 - 绿色 */
+  --color-text: #2c3e50;           /* 主要文字颜色 - 深灰蓝 */
+  --color-text-light: #8a9aa8;    /* 次要文字颜色 - 浅灰 */
+  --color-background: #f8f9fa;     /* 页面背景色 - 非常浅的灰色 */
+  --color-surface: #ffffff;      /* 卡片/组件背景色 - 白色 */
+  --color-border: #dee2e6;        /* 边框颜色 */
+  --border-radius: 8px;            /* 圆角大小 */
+  --shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-background);
+  color: var(--color-text);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  padding: 1rem;
+}
+
+/* 2. 页面布局 (Layout) */
+#appBar { padding: 1rem 1.5rem; margin-bottom: 1.5rem; }
+#appBar h1 { font-size: 1.75rem; font-weight: 600; color: var(--color-text); }
+#app { max-width: 900px; margin: 0 auto; }
+
+/* 3. 日历主容器 (Calendar Container) */
+#calendar {
+  background-color: var(--color-surface);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-md);
+  padding: 1.5rem;
+  overflow: hidden;
+  position: relative;
+}
+
+/* 4. 日历头部 (Calendar Header) */
+#calHead { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem; }
+#calTitle { display: flex; align-items: baseline; gap: 0.5rem; }
+#monthLabel { font-size: 1.5rem; font-weight: 600; }
+#yearLabel { font-size: 1.25rem; font-weight: 400; color: var(--color-text-light); }
+
+/* 5. 日历导航按钮 (Calendar Navigation) */
+#calNav { display: flex; align-items: center; gap: 0.5rem; }
+#calNav button {
+  display: inline-flex; justify-content: center; align-items: center;
+  border: 1px solid var(--color-border);
+  background-color: var(--color-surface);
+  color: var(--color-text);
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: inherit; font-weight: 500;
+}
+#calNav button:not(:disabled):hover,
+#calNav button:not(:disabled):focus-visible {
+  background-color: var(--color-primary-light);
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.2);
+}
+#calNav button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+#prevBtn, #nextBtn { width: 2.5rem; height: 2.5rem; font-size: 1.2rem; }
+#actionBtn { height: 2.5rem; padding: 0 1rem; }
+
+/* 6. 星期行 (Weekdays Row) */
+#weekdays {
+  display: grid; grid-template-columns: repeat(7, 1fr);
+  margin-bottom: 0.5rem; text-align: center;
+  color: var(--color-text-light); font-size: 0.875rem; font-weight: 500;
+}
+
+/* 7. 日期网格 (Date Grid) */
+#grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
+[role="gridcell"] {
+  position: relative; /* 用于对勾定位 */
+  display: flex; justify-content: center; align-items: center;
+  aspect-ratio: 1 / 1;
+  border-radius: var(--border-radius);
+  transition: background-color 0.2s;
+}
+[role="gridcell"] span {
+  display: inline-flex; justify-content: center; align-items: center;
+  width: 2rem; height: 2rem;
+  border-radius: 50%;
+  font-size: 0.9rem; font-weight: 500;
+  transition: all 0.2s;
+}
+[data-out="1"] { color: var(--color-text-light); opacity: 0.6; }
+[role="gridcell"]:not([data-out="1"]):not(.selection-mode *) { cursor: pointer; }
+[role="gridcell"]:not([data-out="1"]):hover span:not([data-today="1"] span) { background-color: var(--color-primary-light); }
+[data-today="1"] span { background-color: var(--color-primary); color: #fff; font-weight: 700; box-shadow: var(--shadow-sm); }
+
+/* 8. 选择模式样式 (Selection Mode Styles) - 新增 */
+.selection-mode [role="gridcell"]:not([data-out="1"]) {
+  cursor: pointer;
+}
+.selection-mode [role="gridcell"]:not([data-out="1"]) > span {
+  border: 2px dashed var(--color-border); /* 虚线框吸引注意 */
+  background-color: transparent !important; /* 覆盖 today 样式 */
+  color: var(--color-text-light);
+}
+.selection-mode [role="gridcell"]:not([data-out="1"]):hover > span {
+  border-color: var(--color-primary);
+}
+[data-selected="1"] {
+  background-color: var(--color-primary-light);
+}
+[data-selected="1"]::after {
+  content: '✓';
+  position: absolute;
+  top: 4px; right: 4px;
+  width: 1.2rem; height: 1.2rem;
+  display: flex; justify-content: center; align-items: center;
+  background-color: var(--color-success);
+  color: white;
+  border-radius: 50%;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+/* 9. 模态框样式 (Modal Styles) - 新增 */
+.modal-overlay {
+  position: fixed; z-index: 100;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: rgba(0,0,0,0.5);
+  display: flex; justify-content: center; align-items: center;
+  opacity: 0; visibility: hidden;
+  transition: opacity 0.3s, visibility 0.3s;
+}
+.modal-overlay:not([hidden]) {
+  opacity: 1; visibility: visible;
+}
+.modal-content {
+  background: var(--color-surface);
+  padding: 2rem;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-md);
+  width: 90%;
+  max-width: 500px;
+  transform: scale(0.95);
+  transition: transform 0.3s;
+}
+.modal-overlay:not([hidden]) .modal-content {
+  transform: scale(1);
+}
+.modal-content h2 { margin-bottom: 1rem; }
+.modal-body { margin-bottom: 1.5rem; }
+.modal-actions { text-align: right; }
+#saveGoalBtn {
+  background-color: var(--color-primary);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+/* 10. 响应式调整 (Responsive Adjustments) */
+@media (max-width: 600px) {
+  html { font-size: 14px; }
+  body { padding: 0.5rem; }
+  #calendar { padding: 1rem; }
+  #calHead { flex-direction: column; align-items: stretch; gap: 1.25rem; }
+  #calTitle { justify-content: center; }
+  #calNav { justify-content: space-between; }
+  #grid { gap: 2px; }
+}
