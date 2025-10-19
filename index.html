@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>工作表 · 日历</title>
+
+  <link rel="stylesheet" href="./style/calendar.css">
+</head>
+<body>
+
+  <!-- 顶部栏 -->
+  <header id="appBar">
+    <h1>工作表</h1>
+    <nav id="topActions" aria-label="全局操作">
+      <!-- 这里以后可以放全局菜单、搜索等 -->
+    </nav>
+  </header>
+
+  <!-- 页面主体 -->
+  <main id="app" aria-label="应用主体">
+    <!-- 日历模块 -->
+    <section id="calendar" aria-label="月历">
+      <!-- 日历头部：标题与月份切换 -->
+      <header id="calHead" aria-label="月份信息与切换">
+        <div id="calTitle">
+          <span id="monthLabel">10月</span>
+          <span id="yearLabel">2025</span>
+        </div>
+        <nav id="calNav" aria-label="月份切换">
+          <button id="prevBtn" type="button" aria-label="上个月">⟨</button>
+          <button id="nextBtn" type="button" aria-label="下个月">⟩</button>
+          <button id="todayBtn" type="button">回到今天</button>
+        </nav>
+      </header>
+
+      <!-- 星期行（周一作为第一列） -->
+      <div id="weekdays" aria-hidden="true">
+        <span>一</span><span>二</span><span>三</span>
+        <span>四</span><span>五</span><span>六</span><span>日</span>
+      </div>
+
+      <!-- 日期网格（6×7 占位，后续由脚本填充） -->
+      <div id="grid" role="grid" aria-readonly="true" aria-label="日期网格（周一为第一列）">
+        <!-- 这里将来渲染 42 个格子，每个格子一个日期 -->
+      </div>
+    </section>
+  </main>
+
+  <!-- 页脚（可选） -->
+  <footer id="footer" aria-label="页脚">
+    <!-- 版权/版本信息等占位 -->
+  </footer>
+
+  <script src="./js/calendar.js"></script>
+
+</body>
+</html>
+
