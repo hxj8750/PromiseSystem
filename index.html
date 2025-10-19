@@ -10,7 +10,7 @@
 
   <!-- 顶部栏 -->
   <header id="appBar">
-    <h1>Engine's On</h1>
+    <h1>工作表</h1>
     <nav id="topActions" aria-label="全局操作">
       <!-- 这里以后可以放全局菜单、搜索等 -->
     </nav>
@@ -29,7 +29,6 @@
         <nav id="calNav" aria-label="月份切换">
           <button id="prevBtn" type="button" aria-label="上个月">⟨</button>
           <button id="nextBtn" type="button" aria-label="下个月">⟩</button>
-          <!-- ID 已修改，功能将由 JS 重新定义 -->
           <button id="actionBtn" type="button">选择日期</button>
         </nav>
       </header>
@@ -52,16 +51,61 @@
     <!-- 版权/版本信息等占位 -->
   </footer>
 
-  <!-- 制定目标模态框 (新增) -->
+  <!-- 制定目标模态框 (已填充完整内容) -->
   <div id="goalModal" class="modal-overlay" hidden>
     <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-      <h2 id="modalTitle">制定目标</h2>
-      <div class="modal-body">
-        <!-- 这里将来会放置表单 -->
-        <p>目标详情、押金、规则等...</p>
-      </div>
-      <div class="modal-actions">
-        <button id="saveGoalBtn" type="button">保存</button>
+      <div class="modal-grid">
+        <!-- 左侧：时钟 -->
+        <div class="modal-clock-side">
+          <div class="time-picker-container">
+            <div id="clock" class="clock">
+              <div class="clock-face">
+                <div id="hourHand" class="hand hour-hand"></div>
+                <div id="minuteHand" class="hand minute-hand"></div>
+                <div class="center-dot"></div>
+              </div>
+            </div>
+            <div id="digitalTime" class="digital-time">23:59</div>
+          </div>
+        </div>
+
+        <!-- 右侧：表单 -->
+        <div class="modal-form-side">
+          <h2 id="modalTitle">制定目标</h2>
+          <form id="goalForm">
+            <div class="form-group">
+              <label for="goal-title">目标</label>
+              <input type="text" id="goal-title" name="goal-title" placeholder="例如：完成项目报告初稿" required>
+            </div>
+            <div class="form-group">
+              <label for="goal-criteria">判定标准</label>
+              <input type="text" id="goal-criteria" name="goal-criteria" placeholder="例如：将PDF发送至对方邮箱" required>
+            </div>
+            <div class="form-group">
+              <label for="goal-deposit">押金 (元)</label>
+              <input type="number" id="goal-deposit" name="goal-deposit" placeholder="例如：50" required>
+            </div>
+            <div class="form-group">
+              <label>截止时间</label>
+              <input type="range" id="hourSlider" title="小时" min="0" max="23" value="23" class="slider">
+              <input type="range" id="minuteSlider" title="分钟" min="0" max="59" value="59" class="slider">
+            </div>
+            <div class="form-group">
+              <label>是否弹性扣除押金？</label>
+              <div class="radio-group">
+                <label><input type="radio" name="deduction" value="no" checked> 不，全部扣除</label>
+                <label><input type="radio" name="deduction" value="yes"> 是，可以商议</label>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="goal-other-rules">其它规则 (可选)</label>
+              <textarea id="goal-other-rules" name="goal-other-rules" rows="2"></textarea>
+            </div>
+          </form>
+          <div class="modal-actions">
+            <button id="saveGoalBtn" type="button">保存</button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
